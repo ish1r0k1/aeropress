@@ -1,0 +1,65 @@
+@use "sass:math";
+@import "../../styles/variables";
+
+$z: rubber, cylinder, edge, hole;
+
+.plunger {
+  position: relative;
+  width: $cylinderWidth;
+}
+
+.cylinderBody {
+  opacity: $cylinderOpacity;
+  position: relative;
+  z-index: index($list: $z, $value: cylinder);
+}
+
+.cylinder {
+  background-color: $cylinderColor;
+  margin: 0 auto;
+
+  &.--top {
+    $h: $plungerTopHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-bottom: -$h * 0.5;
+  }
+
+  &.--middle {
+    height: $cylinderHeight;
+  }
+
+  &.--bottom {
+    $h: $plungerBottomHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-top: -$h * 0.5;
+  }
+}
+
+.cylinderHole {
+  @extend .cylinder;
+  @extend .--top;
+
+  background-color: white;
+  position: absolute;
+  z-index: index($list: $z, $value: hole);
+  width: $cylinderWidth - $cylinderGap * 2;
+  margin-left: $cylinderGap;
+  margin-top: $cylinderGap;
+  opacity: (math.div(1 - $cylinderOpacity, 2));
+}
+
+.rubberContainer {
+  position: absolute;
+  bottom: $cylinderGap;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: index($list: $z, $value: rubber);
+  width: $cylinderWidth - $cylinderGap * 2;
+}

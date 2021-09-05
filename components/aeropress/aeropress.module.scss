@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+$z: plunger, chamber;
+
+.aeroPress {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.plunger {
+  transform: translateY($cylinderHeight * 0.4);
+  z-index: index($list: $z, $value: plunger);
+}
+
+.chamber {
+  z-index: index($list: $z, $value: chamber);
+}

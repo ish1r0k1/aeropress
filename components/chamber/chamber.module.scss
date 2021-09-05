@@ -1,0 +1,133 @@
+@use "sass:math";
+@import "../../styles/variables";
+
+$z: hole, liquid, edge, cylinder;
+$chamberWidth: $cylinderWidth + $cylinderGap * 2;
+
+.chamber {
+  width: $chamberWidth;
+  position: relative;
+}
+
+.cylinderContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.cylinderBody {
+  opacity: $cylinderOpacity;
+  position: relative;
+  z-index: index($list: $z, $value: cylinder);
+}
+
+.cylinder {
+  background-color: $cylinderColor;
+  margin: 0 auto;
+  z-index: index($list: $z, $value: edge);
+  position: relative;
+
+  &.--top {
+    $h: $chamberTopHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-bottom: -$h * 0.5;
+  }
+
+  &.--middle {
+    height: $cylinderHeight;
+  }
+
+  &.--bottom {
+    $h: $chamberBottomHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-top: -$h * 0.5;
+  }
+}
+
+.liquidContainer {
+  position: absolute;
+  z-index: index($list: $z, $value: liquid);
+  width: $cylinderWidth;
+  bottom: $cylinderGap;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+$edgeGap: $cylinderGap * 4;
+$edgeWidth: round(math.div($chamberWidth, 2)) + $edgeGap;
+$edgeHeight: floor($edgeWidth * 1.75);
+
+.cylinderEdgeContainer {
+  position: absolute;
+  bottom: 0 - math.div($cylinderGap, 2);
+  left: round(math.div($edgeWidth, 2)) - $edgeGap;
+  transform: scale(1, 0.2);
+  opacity: $cylinderOpacity;
+}
+
+.cylinderEdge {
+  $color: $cylinderColor;
+
+  position: absolute;
+  bottom: 0;
+  width: $edgeWidth;
+  height: $edgeHeight;
+  background-color: $color;
+
+  @for $i from 0 through 8 {
+    &.--#{$i} {
+      bottom: -1px * ($i + 1);
+    }
+  }
+
+  &__content {
+    height: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $color;
+  }
+
+  &::before {
+    transform: rotate(60deg);
+  }
+
+  &::after {
+    transform: rotate(-60deg);
+  }
+}
+
+.cylinderHole {
+  @extend .cylinder;
+  @extend .--bottom;
+
+  height: $chamberBottomHeight - $cylinderGap;
+  background-color: white;
+  position: absolute;
+  z-index: index($list: $z, $value: hole);
+  width: $chamberWidth - $cylinderGap * 2;
+  margin-left: $cylinderGap;
+  opacity: (1 - $cylinderOpacity) * 2;
+  bottom: $cylinderGap;
+}

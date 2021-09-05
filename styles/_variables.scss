@@ -1,0 +1,18 @@
+$pressDuration: 2s;
+$pressEasing: linear;
+
+$cylinderWidth: 80px;
+$cylinderHeight: ceil($cylinderWidth * 2.4);
+$cylinderColor: #5e5e5e;
+$cylinderOpacity: 0.6;
+$cylinderGap: 4px;
+
+$plungerTopHeight: 16px;
+$plungerBottomHeight: ceil($plungerTopHeight * 0.9);
+$chamberTopHeight: ceil($plungerTopHeight * 0.6);
+$chamberBottomHeight: ceil($plungerBottomHeight * 0.9);
+$liquidSize: ceil($cylinderHeight * 0.3);
+
+%cylinderEnd {
+  border-radius: 50%;
+}

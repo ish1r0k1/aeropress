@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.rubber {
+  background-color: #000;
+
+  &.--top {
+    $h: $plungerBottomHeight * 1.2;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-bottom: -$h * 0.5;
+  }
+
+  &.--middle {
+    height: 12px;
+  }
+
+  &.--bottom {
+    $h: $plungerBottomHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-top: -$h * 0.5;
+  }
+}

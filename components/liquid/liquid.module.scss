@@ -1,0 +1,40 @@
+@import "../../styles/variables";
+
+.liquid {
+  background-color: brown;
+
+  &.--top {
+    $h: $chamberTopHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-bottom: -$h * 0.5;
+
+    &.--press {
+      $h: $chamberBottomHeight;
+
+      height: $h;
+      margin-bottom: -$h * 0.5;
+      transition: $pressDuration $pressEasing;
+    }
+  }
+
+  &.--middle {
+    height: $liquidSize;
+
+    &.--press {
+      height: $liquidSize * 0.1;
+      transition: $pressDuration $pressEasing;
+    }
+  }
+
+  &.--bottom {
+    $h: $chamberBottomHeight - 4px;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-top: -$h * 0.5;
+  }
+}
