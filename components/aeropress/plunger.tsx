@@ -1,12 +1,12 @@
 import { FC } from "react";
-import styles from "./plunger.module.scss";
 import classsNames from "classnames";
-import { PlungerRubber } from "../plungerRubber";
+import { PlungerRubber } from "./plungerRubber";
+import styles from "../aeropress/aeropress.module.scss";
 
-export const Plunger: FC<{ className: string }> = ({ className }) => (
-  <div className={classsNames(className, styles.plunger)}>
+export const Plunger: FC = () => (
+  <div className={styles.plunger}>
     <div className={styles.cylinderHole}></div>
-    <div className={styles.cylinderBody}>
+    <div className={styles.cylinderContainer}>
       <div className={classsNames(styles.cylinder, styles["--top"])}></div>
       <div className={classsNames(styles.cylinder, styles["--middle"])}></div>
       <div className={classsNames(styles.cylinder, styles["--bottom"])}></div>

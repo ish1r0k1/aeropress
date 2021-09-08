@@ -1,18 +1,228 @@
+@use "sass:math";
 @import "../../styles/variables";
 
-$z: plunger, chamber;
+$z: chamberEdge, chamberHole, liquid, chamberCylinder, plungerRubber,
+  plungerCylinder, plungerHole, plunger, chamber;
 
+/**
+ * AeroPress
+ */
 .aeroPress {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.plunger {
-  transform: translateY($cylinderHeight * 0.4);
-  z-index: index($list: $z, $value: plunger);
+/**
+ * cylinder
+ */
+.cylinder {
+  background-color: $cylinderColor;
+  margin: 0 auto;
+
+  &.--top {
+    @extend %cylinderEnd;
+  }
+
+  &.--middle {
+    height: $cylinderHeight;
+  }
+  &.--bottom {
+    @extend %cylinderEnd;
+  }
 }
 
+.cylinderContainer {
+  opacity: $cylinderOpacity;
+  position: relative;
+}
+
+.cylinderHole {
+  @extend .cylinder;
+
+  background-color: white;
+  position: absolute;
+  z-index: index($z, hole);
+  margin-left: $cylinderGap;
+  opacity: $holeOpacity;
+}
+
+/**
+ * plunger
+ */
+.plunger {
+  transform: translateY($cylinderHeight * 0.4);
+  z-index: index($z, plunger);
+  position: relative;
+  width: $cylinderWidth;
+
+  .cylinderContainer {
+    z-index: index($z, plungerCylinder);
+  }
+
+  .cylinder {
+    &.--top {
+      $h: $plungerTopHeight;
+
+      height: $h;
+      margin-bottom: -$h * 0.5;
+    }
+
+    &.--bottom {
+      $h: $plungerBottomHeight;
+
+      height: $h;
+      margin-top: -$h * 0.5;
+    }
+  }
+
+  .cylinderHole {
+    @extend .--top;
+
+    width: $cylinderWidth - $cylinderGap * 2;
+    top: $cylinderGap;
+    z-index: index($z, plungerHole);
+  }
+}
+
+.rubberContainer {
+  position: absolute;
+  bottom: $cylinderGap;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: index($z, plungerRubber);
+  width: $cylinderWidth - $cylinderGap * 2;
+}
+
+/**
+ * chamber
+ */
+$chamberEdgeGap: $cylinderGap * 4;
+$chamberEdgeWidth: round(math.div($chamberWidth, 2)) + $chamberEdgeGap;
+$chamberEdgeHeight: floor($chamberEdgeWidth * 1.75);
+
 .chamber {
-  z-index: index($list: $z, $value: chamber);
+  z-index: index($z, chamber);
+  width: $chamberWidth;
+  position: relative;
+
+  .cylinderContainer {
+    z-index: index($z, chamberCylinder);
+  }
+
+  .cylinder {
+    &.--top {
+      $h: $chamberTopHeight;
+
+      height: $h;
+      margin-bottom: -$h * 0.5;
+    }
+
+    &.--bottom {
+      $h: $chamberBottomHeight;
+
+      height: $h;
+      margin-top: -$h * 0.5;
+    }
+  }
+
+  .cylinderHole {
+    @extend .--bottom;
+
+    width: $chamberWidth - $cylinderGap * 2;
+    bottom: $cylinderGap;
+    z-index: index($z, chamberHole);
+  }
+
+  .liquidContainer {
+    position: absolute;
+    z-index: index($z, liquid);
+    width: $cylinderWidth;
+    bottom: $cylinderGap;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+.chamberEdge {
+  position: absolute;
+  bottom: 0;
+  width: $chamberEdgeWidth;
+  height: $chamberEdgeHeight;
+  background-color: $cylinderColor;
+
+  @for $i from 0 through 8 {
+    &.--#{$i} {
+      bottom: -1px * ($i + 1);
+    }
+  }
+
+  &__content {
+    height: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $cylinderColor;
+  }
+
+  &::before {
+    transform: rotate(60deg);
+  }
+
+  &::after {
+    transform: rotate(-60deg);
+  }
+}
+
+.chamberEdgeContainer {
+  position: absolute;
+  bottom: 0 - math.div($cylinderGap, 2);
+  left: round(math.div($chamberEdgeWidth, 2)) - $chamberEdgeGap;
+  transform: scale(1, 0.2);
+  opacity: $cylinderOpacity;
+}
+
+/**
+ * rubber
+ */
+.rubber {
+  background-color: #000;
+
+  &.--top {
+    $h: $plungerBottomHeight * 1.2;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-bottom: -$h * 0.5;
+  }
+
+  &.--middle {
+    height: 12px;
+  }
+
+  &.--bottom {
+    $h: $plungerBottomHeight;
+
+    @extend %cylinderEnd;
+
+    height: $h;
+    margin-top: -$h * 0.5;
+  }
 }

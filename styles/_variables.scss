@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $pressDuration: 2s;
 $pressEasing: linear;
 
@@ -7,10 +9,15 @@ $cylinderColor: #5e5e5e;
 $cylinderOpacity: 0.6;
 $cylinderGap: 4px;
 
+$holeOpacity: (math.div(1 - $cylinderOpacity, 2));
+
 $plungerTopHeight: 16px;
 $plungerBottomHeight: ceil($plungerTopHeight * 0.9);
+
+$chamberWidth: $cylinderWidth + $cylinderGap * 2;
 $chamberTopHeight: ceil($plungerTopHeight * 0.6);
 $chamberBottomHeight: ceil($plungerBottomHeight * 0.9);
+
 $liquidSize: ceil($cylinderHeight * 0.3);
 
 %cylinderEnd {

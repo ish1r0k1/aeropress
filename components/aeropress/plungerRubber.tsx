@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "./plungerRubber.module.scss";
+import styles from "./aeropress.module.scss";
 import classsNames from "classnames";
 
 export const PlungerRubber: FC = () => (
