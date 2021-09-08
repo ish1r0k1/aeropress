@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "./liquid.module.scss";
+import styles from "./aeropress.module.scss";
 import classNames from "classnames";
 
 export const Liquid: FC = () => (

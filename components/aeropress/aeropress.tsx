@@ -1,11 +1,16 @@
+import classNames from "classnames";
 import { FC } from "react";
-import { Plunger } from "./plunger";
-import { Chamber } from "./chamber";
 import styles from "./aeropress.module.scss";
+import { Chamber } from "./chamber";
+import { Plunger } from "./plunger";
 
-export const AeroPress: FC = () => {
+export const AeroPress: FC<{ isPressed?: boolean }> = ({ isPressed }) => {
   return (
-    <div className={styles.aeroPress}>
+    <div
+      className={classNames(styles.aeroPress, {
+        [styles["--pressed"]]: isPressed,
+      })}
+    >
       <Plunger />
       <Chamber />
     </div>

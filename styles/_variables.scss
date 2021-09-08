@@ -1,9 +1,9 @@
 @use "sass:math";
 
-$pressDuration: 2s;
+$pressDuration: 3s;
 $pressEasing: linear;
 
-$cylinderWidth: 80px;
+$cylinderWidth: 120px;
 $cylinderHeight: ceil($cylinderWidth * 2.4);
 $cylinderColor: #5e5e5e;
 $cylinderOpacity: 0.6;

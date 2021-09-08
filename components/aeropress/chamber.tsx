@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "../aeropress/aeropress.module.scss";
 import classsNames from "classnames";
-import { Liquid } from "../liquid";
+import { Liquid } from "./liquid";
 
 const edges = [...new Array(8)].map((_, i) => {
   return (
